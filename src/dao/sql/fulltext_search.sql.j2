@@ -1,0 +1,14 @@
+SELECT 
+    chunk_id
+FROM 
+(
+    SELECT 
+        chunk_id,
+        ts_rank(embedding.search_vector, to_tsquery('{{query}}'), 32) AS similarity
+    FROM embedding 
+    WHERE collection_id = '{{collection_id}}'
+      AND to_tsquery('{{query}}') @@ search_vector
+)
+WHERE similarity > {{full_score_threshold}}
+ORDER BY similarity DESC
+LIMIT {{top_n}};

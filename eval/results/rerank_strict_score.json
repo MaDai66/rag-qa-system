@@ -1,0 +1,249 @@
+{
+  "tag": "rerank_strict",
+  "scored_at": "2026-10-16 20:03:13",
+  "retrieval_config": {
+    "embeddings_path": "D:/HuggingFace/bge-large-zh-v1.5",
+    "keep_retrieval_order": "0",
+    "llm_model": "deepseek",
+    "rerank_candidates": "20",
+    "rerank_enabled": "1",
+    "rerank_model_path": "D:/HuggingFace/bge-reranker-base",
+    "search_mode": "embedding",
+    "temperature": "0.5",
+    "threshold_fulltext": "0",
+    "threshold_vector": "0.6",
+    "top_n": "5"
+  },
+  "n_total": 45,
+  "n_answered": 45,
+  "n_answerable": 37,
+  "scores": {
+    "成年人每晚至少需要几小时睡眠？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9575605799617324,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "每天至少应该喝多少杯水？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0000000000000002,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "文中提到哪两种放松心情的方式？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9783025491440347,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "科学养生应该根据什么来制定个性化的方案？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9299490693621759,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "规律锻炼能带来哪些好处？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0000000000000002,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "减肥文章里提到的三个常见「减重坑」是什么？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.0
+    },
+    "女性每天摄入的能量一般建议不低于多少千卡？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "男性每天摄入的能量一般建议不低于多少千卡？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "科学的健康减重速度是多少？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9750098678389035,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "减肥文章建议先减掉多少比例的体重？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9386900040366701,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "均衡饮食的原则是什么？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9999999999999998,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "蜂王浆对肺结节患者可能存在哪两方面的潜在益处？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.924051731017848,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.0
+    },
+    "蜂王浆中约占干重 50% 的成分是什么？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "蜂王浆中含有的、具有抗菌抗炎作用的特有成分是什么？": {
+      "faithfulness": 0.2,
+      "answer_relevancy": 0.0,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.699999999965
+    },
+    "关于蜂王浆对肺结节的影响，目前的临床研究情况如何？": {
+      "faithfulness": 0.8,
+      "answer_relevancy": 0.0,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "pg_jieba 提供了哪四种分词配置？": {
+      "faithfulness": 0.8,
+      "answer_relevancy": 0.929121193208188,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.499999999975
+    },
+    "jiebacfg 使用的是 jieba 的哪种分词模式？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9999999999999999,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "jiebaqry 使用的是哪种分词模式，适合什么场景？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9817787753277714,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.49999999995
+    },
+    "编译安装 pgvector 扩展需要安装哪种语言的工具链？": {
+      "faithfulness": 0.8333333333333334,
+      "answer_relevancy": 0.9389923544581111,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "pg_hba.conf 中如果要允许整个子网通过密码认证连接，配置该怎么写？": {
+      "faithfulness": 0.42857142857142855,
+      "answer_relevancy": 0.9319155467012926,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.99999999995
+    },
+    "刘备的相貌特征是怎样的？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9573977896158579,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.49999999995
+    },
+    "关羽的相貌特征是怎样的？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.963394990303848,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "张飞的相貌特征是什么？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9999999999999999,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "周瑜要孔明几日内造多少枝箭？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9351354060661345,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.5888888888692593
+    },
+    "孔明在军令状里承诺几日完成造箭？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9607513960049447,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9166666666361111
+    },
+    "孔明向鲁肃借了多少只船，每船要多少军士？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.99999999995
+    },
+    "黄盖在帐中被打了多少脊杖？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9550937877626509,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "周瑜和孔明各自在手心里写了什么字？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "曹操走出华容道后，跟随他的军兵还剩多少？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.977372766840176,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.9999999999
+    },
+    "是谁向曹操建议向关羽求情？理由是什么？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.8586639720129626,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.249999999975
+    },
+    "减肥文章和养生文章在饮食建议上各侧重什么？有什么区别？": {
+      "faithfulness": 0.9523809523809523,
+      "answer_relevancy": 0.9574399230793816,
+      "context_recall": 0.3333333333333333,
+      "llm_context_precision_with_reference": 0.0
+    },
+    "刘备、关羽、张飞三人的外貌描写有哪些差异？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.5,
+      "llm_context_precision_with_reference": 0.0
+    },
+    "蜂王浆文章和减肥文章都提到了咨询医生或就医，两者的语境有什么不同？": {
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.0,
+      "context_recall": 0.0,
+      "llm_context_precision_with_reference": 0.0
+    },
+    "孔明借箭和黄盖苦肉计，这两个计谋各自要解决什么问题？": {
+      "faithfulness": 0.7777777777777778,
+      "answer_relevancy": 0.964659130507709,
+      "context_recall": 0.5,
+      "llm_context_precision_with_reference": 0.0
+    },
+    "西安交通大学文档中提到的 jiebacfg 和 jiebaqry 有什么区别？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.7595203926303632,
+      "context_recall": 1.0,
+      "llm_context_precision_with_reference": 0.49999999995
+    },
+    "曹操在华容道途中三次大笑，分别招来了谁？": {
+      "faithfulness": 0.9473684210526315,
+      "answer_relevancy": 0.9465201656829331,
+      "context_recall": 0.3333333333333333,
+      "llm_context_precision_with_reference": 0.0
+    },
+    "减肥文章说的「过度运动」和养生文章推荐的运动，差别在哪里？": {
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9534019774218057,
+      "context_recall": 0.3333333333333333,
+      "llm_context_precision_with_reference": 0.0
+    }
+  },
+  "refusal": {
+    "n": 8,
+    "refused": 8,
+    "hallucinated": []
+  }
+}

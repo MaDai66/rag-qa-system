@@ -1,0 +1,11 @@
+SELECT 
+        chunk.uuid as chunk_id, 
+        chunk.file_id, 
+        chunk.file_name,
+        chunk.context,
+        file.collection_id
+FROM chunk
+JOIN file ON file.uuid = chunk.file_id
+where chunk.status = 0
+ORDER BY chunk.create_time asc
+LIMIT 200;

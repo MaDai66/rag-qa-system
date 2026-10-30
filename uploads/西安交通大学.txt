@@ -1,0 +1,144 @@
+一）安装rocky linux 镜像
+西安交通大学
+https://mirrors.xjtu.edu.cn/rocky/9/isos/x86_64/Rocky-9.6-x86_64-minimal.iso
+
+
+二）安装postgresql
+https://www.postgresql.org/download/linux/redhat/
+
+sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+sudo dnf -qy module disable postgresql
+sudo dnf install -y postgresql17-server
+sudo /usr/pgsql-17/bin/postgresql-17-setup initdb
+sudo systemctl enable postgresql-17
+sudo systemctl start postgresql-17
+
+
+1）postgresql.conf 
+# 监听的网络地址，* 表示监听所有可用网络接口
+listen_addresses = '*'  # 默认可能是 'localhost' 或 '127.0.0.1'
+
+# 监听的端口（默认 5432，可保持默认）
+port = 5432
+2）pg_hba.conf
+# 允许特定 IP 地址（如 192.168.1.101）通过密码认证连接
+host    all             all             192.168.1.101/32        scram-sha-256
+
+# 允许整个子网（如 192.168.1.0/24）通过密码认证连接
+host    all             all             192.168.1.0/24          scram-sha-256
+
+# 如果是公网环境，限制具体 IP（不建议直接开放 0.0.0.0/0）
+# host    all             all             0.0.0.0/0               scram-sha-256
+
+3）防火墙 打开5432
+sudo systemctl status firewalld
+sudo firewall-cmd --permanent --remove-port=5432/tcp
+sudo firewall-cmd --reload
+
+4）重置数据库用户密码
+sudo -u postgres psql
+
+-- 重置 postgres 用户密码（替换 'new_password' 为你的新密码）
+ALTER USER postgres WITH PASSWORD '123456';
+
+-- 退出 psql
+\q
+
+
+三）安装 jieba
+
+sudo dnf update -y
+sudo dnf install -y git make gcc gcc-c++ cmake
+
+
+git clone https://github.com/jaiminpan/pg_jieba
+libjieba是个子模块
+
+cd pg_jieba
+
+# initilized sub-project
+git submodule update --init --recursive 
+
+如果上面的submodule 报错，可以手动拉镜像
+
+git clone https://github.com/yanyiwu/cppjieba
+改名 libjieba
+
+cppjieba里面deps 也有个 子模块
+git clone https://github.com/yanyiwu/limonp.git
+
+查询rpm地址 https://pkgs.org/search/?q=perl-IPC-Run&arch=x86_64&distro=Rocky+Linux+9
+
+wget https://dl.rockylinux.org/pub/rocky/9/devel/x86_64/os/Packages/p/perl-IO-Tty-1.16-4.el9.x86_64.rpm
+sudo rpm -ivh perl-IO-Tty-1.16-4.el9.x86_64.rpm
+
+wget https://rpmfind.net/linux/centos-stream/9-stream/CRB/x86_64/os/Packages/perl-IPC-Run-20200505.0-6.el9.noarch.rpm
+sudo rpm -ivh perl-IPC-Run-20200505.0-6.el9.noarch.rpm 
+
+sudo dnf install -y postgresql17-devel-17.6-1PGDG.rhel9.x86_64
+
+
+echo 'export PATH=$PATH:/usr/pgsql-17/bin/' >> ~/.bashrc
+source ~/.bashrc
+
+检查 pg_config --pkglibdir 是否返回值
+
+
+# 创建 build 目录并进入
+mkdir build && cd build
+
+# 手动指定 PostgreSQL 路径（根据实际安装路径调整）
+cmake ..   -DPostgreSQL_INCLUDE_DIR=/usr/pgsql-17/include/server   -DPostgreSQL_LIBRARY=/usr/pgsql-17/lib/libpq.so -DPostgreSQL_TYPE_INCLUDE_DIR=/usr/pgsql-17/include/server
+
+make
+sudo make install
+
+CREATE EXTENSION IF NOT EXISTS pg_jieba;
+
+SELECT cfgname FROM pg_ts_config WHERE cfgname LIKE 'jieba%';
+
+jiebacfg jiebaqry jiebamp jiebahmm
+
+1. jiebacfg：默认精确分词配置（最常用）
+分词模式：基于 jieba 的「精确模式」，会将文本切分成最合理的词语组合（不重复、不冗余）。
+适用场景：通用中文分词场景（如文章内容、评论、标题等），兼顾准确性和效率。
+示例：
+sql
+SELECT to_tsvector('jiebacfg', '我爱中国北京天安门');
+-- 结果：'中国':3 '北京':4 '天安门':5 '我爱':1,2
+
+2. jiebaqry：查询专用分词配置
+分词模式：基于 jieba 的「搜索引擎模式」，对长词进行二次切分，适合查询场景。
+适用场景：用户输入的查询词（如搜索框关键词），确保更多相关词被匹配。
+示例：
+sql
+SELECT to_tsvector('jiebaqry', '我爱中国北京天安门');
+-- 结果可能包含更多细分词：'中国':3 '北京':4 '天安':5 '天安门':5 '我爱':1,2 '门':6
+
+
+select to_tsvector('jiebacfg', '我爱中国北京天安门') @@ to_tsquery('jiebacfg', '美国') AS a;
+
+
+四）安装vector
+sudo dnf install -y postgresql17-devel gcc make
+
+安装 Rust 工具链（vector 扩展使用 Rust 开发）：
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+
+git clone https://github.com/pgvector/pgvector.git
+cd pgvector
+make PG_CONFIG=/usr/pgsql-17/bin/pg_config
+sudo make PG_CONFIG=/usr/pgsql-17/bin/pg_config install
+
+# 进入 PostgreSQL
+sudo -u postgres psql
+
+# 在数据库中创建扩展
+CREATE EXTENSION vector;
+
+# 验证安装
+SELECT * FROM pg_extension WHERE extname = 'vector';
+
+
+

@@ -1,0 +1,39 @@
+-- 向量检索
+WITH vector_search AS (
+    SELECT 
+        chunk_id,
+        (1 - (embedding_vector <=> '{{query_embedding}}')) AS vector_score
+    FROM embedding 
+    WHERE collection_id = '{{collection_id}}'
+	AND vector_score > {{vector_score_threshold}}
+    ORDER BY vector_score DESC
+    LIMIT {{top_n}}
+),
+-- 全文检索
+text_search AS (
+    SELECT 
+        chunk_id,
+        ts_rank(search_vector, to_tsquery('simple', '{{query}}'), 32) AS text_score
+    FROM embedding 
+    WHERE collection_id = '{{collection_id}}'
+    AND search_vector @@ to_tsquery('simple', '{{query}}')
+	AND text_score > {{full_score_threshold}}
+    ORDER BY text_score DESC
+    LIMIT {{top_n}}
+),
+-- 合并结果
+combined_scores AS (
+    SELECT 
+        COALESCE(v.chunk_id, t.chunk_id) AS chunk_id,
+        COALESCE(v.vector_score, 0) + COALESCE(t.text_score, 0) AS comprehensive_score
+    FROM vector_search v
+    FULL OUTER JOIN text_search t ON v.chunk_id = t.chunk_id
+)
+SELECT 
+    chunk_id,
+    comprehensive_score,
+    comprehensive_score AS similarity
+FROM combined_scores
+WHERE comprehensive_score > {{score_threshold}}
+ORDER BY comprehensive_score DESC
+LIMIT {{top_n}};

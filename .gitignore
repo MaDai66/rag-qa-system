@@ -1,0 +1,83 @@
+# ---> Python
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+chroma_bge/454fd263-a91b-4725-b95d-517f66b607ed/data_level0.bin
+chroma_bge/454fd263-a91b-4725-b95d-517f66b607ed/header.bin
+chroma_bge/454fd263-a91b-4725-b95d-517f66b607ed/length.bin
+chroma_bge/454fd263-a91b-4725-b95d-517f66b607ed/link_lists.bin
+chroma_bge/c703f661-db8c-4cf2-9d19-e66aeec9dfb4/data_level0.bin
+chroma_bge/c703f661-db8c-4cf2-9d19-e66aeec9dfb4/header.bin
+chroma_bge/c703f661-db8c-4cf2-9d19-e66aeec9dfb4/length.bin
+chroma_bge/c703f661-db8c-4cf2-9d19-e66aeec9dfb4/link_lists.bin
+
+# --- 本地配置与隐私 ---
+conf.yaml
+conf.yaml.bak*
+uploads/*.pdf
+*.pdf
+.env
+
+# --- 运行时产物 ---
+chroma_bge/
+*.db
+logs/
+.pytest_cache/
+eval/local_paths.py
+!conf.example.yaml

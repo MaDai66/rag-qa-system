@@ -1,0 +1,28 @@
+SELECT
+	chunk_id,
+	comprehensive_score,
+	comprehensive_score AS similarity
+FROM
+	(
+	SELECT DISTINCT ON ( chunk_id ) 
+		* ,
+		similarity,
+		similarity AS comprehensive_score
+	FROM
+		(
+		SELECT
+			*,
+			(( 1 - ( embedding.embedding_vector <=>  '{{query_embedding}}' ) )+ts_rank( embedding.search_vector, to_tsquery('simple', '{{query}}' ), 32 )) AS similarity
+		FROM
+			embedding 
+			WHERE collection_id='{{collection_id}}'
+		) TEMP
+	ORDER BY
+		chunk_id,
+		similarity DESC
+	) DISTINCT_TEMP
+WHERE
+	comprehensive_score > {{score_threshold}}
+ORDER BY
+	comprehensive_score DESC
+	LIMIT {{top_n}};

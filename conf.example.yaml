@@ -1,0 +1,11 @@
+# 复制为 conf.yaml 后填写。conf.yaml 已在 .gitignore 里，不会被提交。
+#
+# 支持 $ENV_VAR 语法（见 src/config/loader.py）：写成 $PG_DATABASE_URL，
+# 启动前 `set PG_DATABASE_URL=...` / `export PG_DATABASE_URL=...` 即可，
+# 这样密码不会出现在任何文件里。
+
+db:
+  # 需要 PostgreSQL + pgvector
+  url: $PG_DATABASE_URL
+  # 直接写死的例子：
+  # url: postgresql+psycopg://postgres:postgres@127.0.0.1:5432/langchat

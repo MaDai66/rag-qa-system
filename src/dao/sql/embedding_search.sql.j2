@@ -1,0 +1,13 @@
+SELECT
+    chunk_id
+FROM
+	(
+	SELECT 
+		chunk_id, 
+		( embedding.embedding_vector <=> '{{query_embedding}}' )  AS similarity 
+		FROM embedding 
+		WHERE collection_id='{{collection_id}}'
+	)
+WHERE similarity <= {{vector_score_threshold}}
+ORDER BY similarity asc
+LIMIT {{top_n}};

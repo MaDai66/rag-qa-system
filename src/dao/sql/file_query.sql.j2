@@ -1,0 +1,6 @@
+SELECT file.uuid, file.file_name, file.create_time,file.file_extension,file.collection_id,file.cmetadata,collection.name as collection_name
+FROM file
+JOIN collection ON file.collection_id = collection.uuid
+{% if collection_id and collection_id|string|trim != "" %}
+WHERE collection.uuid = '{{ collection_id }}'
+{% endif %}    
