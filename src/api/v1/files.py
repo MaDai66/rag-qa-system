@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 import os
 import uuid
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.core.api_contract import APIContract
 from src.config.conf import PROJECT_DIR
@@ -53,13 +53,14 @@ async def upload_files(file: UploadFile = File(...), collection_id: str = Form(N
     return APIContract.success({"filename": file.filename, "message": "File store to chunk successfully."})
 
 @router.get("/")
-async def get_all(data: dict, db: AsyncSession = Depends(get_db)):
+async def get_all(collection_id: str = Query(None), db: AsyncSession = Depends(get_db)):
+    # 原来参数是 data: dict，FastAPI 会当成请求体；浏览器发 GET 不允许带 body，前端调不到。
+    # 改成查询参数，行为不变。
     service = FileService(db)
-    return APIContract.success(await service.query_files(data.get("collection_id")))
+    return APIContract.success(await service.query_files(collection_id))
 
 @router.delete("/")
-async def delete_file(data: dict, db: AsyncSession = Depends(get_db)):
-    file_id = data.get("file_id")
+async def delete_file(file_id: str = Query(...), db: AsyncSession = Depends(get_db)):
 
     embedding_service = EmbeddingService(db)
     await embedding_service.delete_embedding_by_file_id(file_id)

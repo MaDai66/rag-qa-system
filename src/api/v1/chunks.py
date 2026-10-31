@@ -24,7 +24,9 @@ async def update_chunk(uuid: str, content: str, db: AsyncSession = Depends(get_d
 @router.get("/chunk/{uuid}")
 async def get_chunk_by_chunk_id(uuid: str, db: AsyncSession = Depends(get_db)):
     chunk_service = ChunkService(db)
-    return APIContract.success(await chunk_service.get_chunk(uuid))
+    # ChunkService 没有 get_chunk 这个方法，原来这行一定是 500。
+    # 改用基类的 get_by_id，它走主键查，而 ChunkDAO 的主键就是 uuid，等价。
+    return APIContract.success(await chunk_service.get_by_id(uuid))
 
 @router.get("/file/{file_id}")
 async def get_chunks_by_file_id(file_id: str, db: AsyncSession = Depends(get_db)):

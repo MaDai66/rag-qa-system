@@ -27,7 +27,7 @@ async def chat_with_user(req: ChatRequest, db: AsyncSession = Depends(get_db)):
     user = await user_service.get_by_id(req.user_id)
 
     if not user:
-        return APIContract.error("User not found")
+        return APIContract.error(400, "User not found")
     
     logger.info(f"用户信息: {user}")
 

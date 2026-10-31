@@ -10,14 +10,17 @@ logger = get_logger(__name__)
 _db_url: str = None
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
+    db = None
     try:
         db = async_session()
         yield db
     except Exception as e:
-        # 记录日志或进行其他处理
         print(f"数据操作错误: {e}")
         if db and db.in_transaction():  # 如果存在未完成的事务，则回滚
             await db.rollback()
+        # 必须抛出去。吞掉的话 FastAPI 只会看到「Response not awaited」，
+        # 真正的原因被埋掉，排查全靠猜。
+        raise
     finally:
         if db:
             await db.close()

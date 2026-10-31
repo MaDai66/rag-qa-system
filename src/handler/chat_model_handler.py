@@ -219,6 +219,13 @@ class ChatModelHandler:
         
         # 去重
         unique_chunk_ids = list(dict.fromkeys(chunk_ids))
+
+        # hybrid 会返回最多 2×top_n 条（向量 top_n 条 + 全文 top_n 条），
+        # 而 RRF 只改顺序不增删候选。下游只有重排那条路会截到 top_n，
+        # 不重排时这些候选会原样全塞进 prompt（top_n=5 却出 7 条引用）。
+        if not (opts and opts.get("rerank_enabled")):
+            unique_chunk_ids = unique_chunk_ids[:top_n]
+
         logger.info(f"检索出来的chunk_ids: {unique_chunk_ids}")
         return unique_chunk_ids
 
